@@ -68,6 +68,8 @@ const PlaceOrder = () => {
       }, {
         headers : {token}
       })
+     
+      
 
       if(response.data.success){
         toast.success(response.data.message)

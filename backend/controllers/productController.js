@@ -5,7 +5,11 @@ import {v2 as cloudinary} from 'cloudinary'
 import productModel from '../models/productModel.js';
 import sellerModel from '../models/sellerModel.js';
 import jwt from 'jsonwebtoken'
+import axios from "axios"
 const decodeToken = (token) => {
+
+
+    
     try {
       // Verify and decode the token using the same secret used for signing
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -14,14 +18,67 @@ const decodeToken = (token) => {
       
       // The decoded object will contain the `id` and other payload data
       const userId = decoded.id;
-  
+   
       console.log('Decoded ID:', userId);
       return userId;
     } catch (error) {
-      console.error('Error decoding token:', error.message);
+      console.error('Error decoding token:', error.message);  
       return null;
     }
   };
+
+
+
+
+  const addRecomemdedProduct = async(req, res) => {  
+    try {
+        const { name, description, price, category, subCategory, seller, image } = req.body;
+
+        
+           
+                let result = await cloudinary.uploader.upload(image, {resource_type:"image"});
+               
+
+    
+        
+
+        const productData = {
+            name,
+            description,
+            subCategory,
+            price : Number(price),
+            image : result.secure_url,
+            category,
+            
+            sizes : ["S", "M", "L"],    
+            bestseller : false,
+            date : Date.now(),  
+            seller
+        }
+        
+
+        const product = new productModel(productData)
+        const d = await product.save();
+        console.log(d._id);
+        
+            
+        res.json({success:true, d, id : d._id})
+        
+
+
+
+        
+    } catch (error) {
+        console.log(error.message);  
+        res.json({success : false, message:error.message})
+        
+        
+    }
+
+  }
+
+
+  
 
 const addProduct = async(req, res) => {
     try {
@@ -64,12 +121,11 @@ const addProduct = async(req, res) => {
         const productData = {
             name,
             description,
-            price : Number(price),
             subCategory,
             price : Number(price),
             image : imagesUrl,
             category,
-            subCategory,
+            
             sizes : JSON.parse(sizes),
             bestseller : bestseller === "true" ? true : false,
             date : Date.now(),
@@ -88,6 +144,7 @@ const addProduct = async(req, res) => {
         
     } catch (error) {
         console.log(error.message);  
+        res.json({success : false, message:error.message})
         
         
     }
@@ -154,7 +211,9 @@ export {
     listProducts,
     addProduct,
     removeProduct,
-    singleProduct
+    singleProduct,
+    addRecomemdedProduct
+    
 }
 
 

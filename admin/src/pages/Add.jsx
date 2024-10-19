@@ -17,6 +17,7 @@ const Add = ({token}) => {
   const [subCategory, setSubCategory] = useState('Topwear');
   const [bestseller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
+  const [seller, setSeller] = useState("");
 
 
   const onSubmit = async(e) =>{
@@ -31,6 +32,7 @@ const Add = ({token}) => {
       formData.append("subCategory", subCategory);
       formData.append("bestseller", bestseller);
       formData.append("sizes", JSON.stringify(sizes));
+      formData.append("seller", seller)
 
       image1 && formData.append("image1", image1);
       image2 && formData.append("image2", image2);
@@ -150,6 +152,11 @@ const Add = ({token}) => {
           </div>
 
         </div>
+      </div>
+      <div className="">
+      <p className='mb-2'>Seller </p>
+      <input type="text" onChange={(e)=>setSeller(e.target.value)} value={seller} required />
+
       </div>
 
 

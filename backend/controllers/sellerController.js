@@ -160,6 +160,38 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const removeSeller = async(req, res) => {
+  try {
+      await sellerModel.findByIdAndDelete(req.body.id);
+  res.json({success:true, message:"deleted successfully"})
+      
+  } catch (error) {
+      console.log(error);
+      res.json({success:false, message:error})
+      
+      
+  }
+
+}
+
+const getAllSellers = async(req, res) => {
+  try {
+
+    const sellers = await sellerModel.find({});
+    if(!sellers){
+      res.json({success: false, message:"Sellers not found"});
+    }
+
+    res.json({success:true, sellers  })
+    
+  } catch (error) {
+    console.error(error.message);
+    res.json({ success: false, message: error.message });
+    
+  }
+}
+
+
 // Get users who ordered a specific product
 const getUserWhoOrdered = async (req, res) => {
   try {
@@ -201,5 +233,7 @@ export {
     removeProduct,
     getAllProducts,
     getUserWhoOrdered,
-    updateProduct
+    updateProduct,
+    getAllSellers,
+    removeSeller
 }

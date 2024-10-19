@@ -1,5 +1,5 @@
 import express from 'express'
-import { loginSeller,registerSeller, removeProduct, getAllProducts, updateProduct, getUserWhoOrdered} from '../controllers/sellerController.js'
+import { loginSeller,registerSeller, removeSeller, getAllSellers,  removeProduct, getAllProducts, updateProduct, getUserWhoOrdered} from '../controllers/sellerController.js'
 import authUser from '../middleware/auth.js';
 
 
@@ -12,6 +12,8 @@ sellerRouter.post('/remove',authUser,  removeProduct);
 sellerRouter.post('/status', authUser,  updateProduct);
 sellerRouter.post('/list',   getAllProducts);
 sellerRouter.post('/getUser', getUserWhoOrdered);
+sellerRouter.post('/getsellers', getAllSellers)
+sellerRouter.post('/removeseller',removeSeller )
 
 
 export default sellerRouter;

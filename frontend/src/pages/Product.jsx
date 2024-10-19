@@ -4,14 +4,23 @@ import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/frontend_assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import { toast } from 'react-toastify';
+import axios from 'axios'
+import Title from '../components/Title';
+import ProductItem from '../components/ProductItem'
 
 const Product = () => {
 
-  const {productId} = useParams();
+
+  const {productId} = useParams()
+
+  const [recommendProducts, setRecommendedProducts] = useState([])
+  const [suggestWhichProducts, setSuggestWhichProducts] =useState(true);
   const {products, currency, addToCart} = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('')
+  const [recommendedImages, setRecommendedImages] = useState([]);
+  const [loading , setLoading] = useState(false);
 
   const fetchProductData = async () => {
 
@@ -25,13 +34,96 @@ const Product = () => {
     })
 
   }
+  useEffect(()=>{
+    setRecommendedProducts([])
+  }, [])
 
   useEffect(()=>{
     fetchProductData();
+    
   }, [productId, products])
+
+
+  const fetRecommendation = async () => {
+    setLoading(true)
+    if (!image) return; // Ensure 'image' is a valid Cloudinary URL
+
+    try {
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const file = new File([blob], 'downloaded_image.jpg', { type: blob.type });
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const formData1 = new FormData();
+      formData1.append('image1', file)
+
+      // Log formData contents
+      for (let [key, value] of formData.entries()) {
+          console.log(key, value);
+      }
+
+      const apiResponse = await axios.post('http://localhost:5000/recommend', formData);
+
+      console.log('Response data:', apiResponse.data);
+      setRecommendedImages(apiResponse.data.recommended_images);
+
+
+      const recommendationsToSave = apiResponse.data.recommended_images.map(item => ({
+        image : item.image,
+        // _id : item.data.data.id,  // The URL of the recommended image
+      
+        
+  
+          name: item.data.data.productDisplayName,
+          description : item.data.data.brandUserProfile.bio ? item.data.data.brandUserProfile.bio : "uhgerufiwufwhwefhgwehgf" ,
+          price: item.data.data.price,  // Ensure these fields are included in the API response
+          category: item.data.data.gender,
+            seller: item.data.data.brandName,
+            subCategory:item.data.data.subCategory.typeName
+        
+    }));
+
+    console.log(recommendationsToSave);
+
+    recommendationsToSave.map((r)=>{
+      axios.post("http://localhost:4000/api/product/addrecommend",r ).then(res=>console.log(res.data)
+      
+      
+      )
+    })
+    
+    
+    
+    
+    
+
+
+
+
+
+  } catch (error) {
+      console.error('Error fetching recommendations:', error);
+  }
+  finally {
+    setLoading(false)
+    console.log(recommendProducts);
+    
+  }
+};
+
+
+  // useEffect(()=>{
+  //   fetRecommendation();
+    
+
+
+  // }, [])
   return productData ?  (
     <div className='border-t pt-10 transition-opacity ease-in-out duration-500 opacity-100 '>
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
+        
 
         {/*------------- product images */}
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
@@ -106,7 +198,28 @@ const Product = () => {
 
 
         {/* display related products */}
-        <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
+        <button onClick={()=>fetRecommendation()}>Suggest Some Products</button>
+
+        {loading? 
+        <>Loading...</>
+
+        : <div className='my-24'>
+        <div className="text-center text-3xl py-2">
+            <Title text1={'REALTED'} text2={'PRODUCTS'}/>
+
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+            {
+                recommendProducts.map((item, index)=>(
+                    <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.image} />
+                ))
+            }
+        </div>
+
+    </div>
+
+}
 
       </div>
 
