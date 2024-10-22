@@ -12,3 +12,5 @@ implement webhook handler
 
 fix bug in pagination
 
+remove unused variables
+
