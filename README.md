@@ -16,3 +16,5 @@ remove unused variables
 
 fix session persistence bug
 
+improve modal close behavior
+
