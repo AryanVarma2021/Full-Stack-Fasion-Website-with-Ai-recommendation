@@ -22,3 +22,5 @@ remove redundant code
 
 add comments for clarity
 
+fix typo in CONTRIBUTING.md
+
