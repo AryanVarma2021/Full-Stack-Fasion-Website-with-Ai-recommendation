@@ -20,3 +20,5 @@ improve modal close behavior
 
 remove redundant code
 
+add comments for clarity
+
