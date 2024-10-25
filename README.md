@@ -18,3 +18,5 @@ fix session persistence bug
 
 improve modal close behavior
 
+remove redundant code
+
