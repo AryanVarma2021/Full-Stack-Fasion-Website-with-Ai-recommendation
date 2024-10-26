@@ -32,3 +32,5 @@ fix font size for mobile view
 
 refactor form components
 
+integrate social login
+
