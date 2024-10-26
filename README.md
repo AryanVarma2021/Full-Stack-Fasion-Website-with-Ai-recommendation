@@ -26,3 +26,5 @@ fix typo in CONTRIBUTING.md
 
 fix infinite loop in polling
 
+add payment receipt download
+
