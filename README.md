@@ -24,3 +24,5 @@ add comments for clarity
 
 fix typo in CONTRIBUTING.md
 
+fix infinite loop in polling
+
