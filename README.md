@@ -28,3 +28,5 @@ fix infinite loop in polling
 
 add payment receipt download
 
+fix font size for mobile view
+
