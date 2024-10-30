@@ -36,3 +36,5 @@ integrate social login
 
 adding add button backend logic
 
+update seed data
+
