@@ -42,3 +42,5 @@ fix typo in CONTRIBUTING.md
 
 improve form validation UI
 
+add icons to sidebar
+
