@@ -38,3 +38,5 @@ adding add button backend logic
 
 update seed data
 
+fix typo in CONTRIBUTING.md
+
