@@ -40,3 +40,5 @@ update seed data
 
 fix typo in CONTRIBUTING.md
 
+improve form validation UI
+
