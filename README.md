@@ -44,3 +44,5 @@ improve form validation UI
 
 add icons to sidebar
 
+adding encryption to database
+
