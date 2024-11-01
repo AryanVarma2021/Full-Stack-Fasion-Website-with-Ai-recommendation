@@ -50,3 +50,5 @@ fix crash on missing image
 
 optimize SQL joins
 
+center-align login box
+
