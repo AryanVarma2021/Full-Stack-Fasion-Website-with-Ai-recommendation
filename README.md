@@ -46,3 +46,5 @@ add icons to sidebar
 
 adding encryption to database
 
+fix crash on missing image
+
