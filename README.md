@@ -48,3 +48,5 @@ adding encryption to database
 
 fix crash on missing image
 
+optimize SQL joins
+
