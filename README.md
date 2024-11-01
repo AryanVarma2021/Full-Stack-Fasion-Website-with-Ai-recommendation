@@ -52,3 +52,5 @@ optimize SQL joins
 
 center-align login box
 
+align navbar properly
+
