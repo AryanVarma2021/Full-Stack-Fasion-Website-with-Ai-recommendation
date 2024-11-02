@@ -60,3 +60,5 @@ remove redundant code
 
 enable multi-language support
 
+implement admin dashboard
+
