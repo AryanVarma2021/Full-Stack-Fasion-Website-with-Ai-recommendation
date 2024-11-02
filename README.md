@@ -56,3 +56,5 @@ align navbar properly
 
 adjust card border radius
 
+remove redundant code
+
