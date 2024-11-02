@@ -62,3 +62,5 @@ enable multi-language support
 
 implement admin dashboard
 
+fix alignment issue
+
