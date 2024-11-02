@@ -58,3 +58,5 @@ adjust card border radius
 
 remove redundant code
 
+enable multi-language support
+
