@@ -54,3 +54,5 @@ center-align login box
 
 align navbar properly
 
+adjust card border radius
+
