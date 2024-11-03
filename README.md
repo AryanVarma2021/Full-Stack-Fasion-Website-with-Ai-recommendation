@@ -68,3 +68,5 @@ backend database model is built successfully
 
 add user activity log
 
+update schema for orders table
+
