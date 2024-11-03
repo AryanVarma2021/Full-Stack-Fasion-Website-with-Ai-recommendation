@@ -66,3 +66,5 @@ fix alignment issue
 
 backend database model is built successfully
 
+add user activity log
+
