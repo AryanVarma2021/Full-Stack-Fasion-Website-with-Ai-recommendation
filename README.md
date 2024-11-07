@@ -80,3 +80,5 @@ add export to CSV option
 
 update favicon
 
+change db column type
+
