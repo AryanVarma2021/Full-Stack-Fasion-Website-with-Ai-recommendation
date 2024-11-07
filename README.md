@@ -72,3 +72,5 @@ update schema for orders table
 
 implement two-factor auth
 
+improve doc string clarity
+
