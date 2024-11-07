@@ -74,3 +74,5 @@ implement two-factor auth
 
 improve doc string clarity
 
+improve user verification flow
+
