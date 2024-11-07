@@ -78,3 +78,5 @@ improve user verification flow
 
 add export to CSV option
 
+update favicon
+
