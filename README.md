@@ -88,3 +88,5 @@ adjust card border radius
 
 clarify usage section in docs
 
+adjust padding and margin
+
