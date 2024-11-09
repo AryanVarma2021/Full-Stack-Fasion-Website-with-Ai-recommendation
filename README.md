@@ -84,3 +84,5 @@ change db column type
 
 change font family to Roboto
 
+adjust card border radius
+
