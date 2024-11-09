@@ -86,3 +86,5 @@ change font family to Roboto
 
 adjust card border radius
 
+clarify usage section in docs
+
