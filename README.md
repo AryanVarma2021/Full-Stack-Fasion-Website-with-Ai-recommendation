@@ -94,3 +94,5 @@ add new feature section
 
 update dependencies
 
+improve modal close behavior
+
