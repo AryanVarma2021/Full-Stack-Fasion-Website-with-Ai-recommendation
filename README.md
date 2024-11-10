@@ -92,3 +92,5 @@ adjust padding and margin
 
 add new feature section
 
+update dependencies
+
