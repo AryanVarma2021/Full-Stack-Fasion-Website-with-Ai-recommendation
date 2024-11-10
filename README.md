@@ -90,3 +90,5 @@ clarify usage section in docs
 
 adjust padding and margin
 
+add new feature section
+
