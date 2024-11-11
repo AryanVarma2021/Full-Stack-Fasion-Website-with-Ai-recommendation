@@ -98,3 +98,5 @@ improve modal close behavior
 
 rename variables for clarity
 
+implement theme persistence
+
