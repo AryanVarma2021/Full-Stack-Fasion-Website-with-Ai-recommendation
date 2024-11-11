@@ -96,3 +96,5 @@ update dependencies
 
 improve modal close behavior
 
+rename variables for clarity
+
