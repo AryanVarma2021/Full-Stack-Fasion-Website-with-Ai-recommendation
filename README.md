@@ -100,3 +100,5 @@ rename variables for clarity
 
 implement theme persistence
 
+integrate OTP verification
+
