@@ -106,3 +106,5 @@ integrate social login
 
 document new endpoints
 
+integrate OTP verification
+
