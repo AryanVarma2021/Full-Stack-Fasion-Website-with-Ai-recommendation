@@ -108,3 +108,5 @@ document new endpoints
 
 integrate OTP verification
 
+align navbar properly
+
