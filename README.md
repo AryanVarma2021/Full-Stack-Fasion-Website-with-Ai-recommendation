@@ -104,3 +104,5 @@ integrate OTP verification
 
 integrate social login
 
+document new endpoints
+
