@@ -102,3 +102,5 @@ implement theme persistence
 
 integrate OTP verification
 
+integrate social login
+
