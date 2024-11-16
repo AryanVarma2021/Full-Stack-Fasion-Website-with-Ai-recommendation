@@ -112,3 +112,5 @@ align navbar properly
 
 update changelog
 
+add image carousel
+
