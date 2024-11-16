@@ -110,3 +110,5 @@ integrate OTP verification
 
 align navbar properly
 
+update changelog
+
