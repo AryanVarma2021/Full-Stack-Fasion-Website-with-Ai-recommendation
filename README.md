@@ -120,3 +120,5 @@ update API response format
 
 add toast notifications
 
+add rate limiter
+
