@@ -122,3 +122,5 @@ add toast notifications
 
 add rate limiter
 
+update changelog
+
