@@ -126,3 +126,5 @@ update changelog
 
 remove commented-out code
 
+add new feature section
+
