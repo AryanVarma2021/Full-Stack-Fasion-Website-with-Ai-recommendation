@@ -124,3 +124,5 @@ add rate limiter
 
 update changelog
 
+remove commented-out code
+
