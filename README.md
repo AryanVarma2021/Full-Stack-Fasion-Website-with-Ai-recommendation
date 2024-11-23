@@ -136,3 +136,5 @@ fix redirect after login
 
 update API response format
 
+add toast notifications
+
