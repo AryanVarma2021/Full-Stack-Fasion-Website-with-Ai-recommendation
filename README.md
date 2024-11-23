@@ -138,3 +138,5 @@ update API response format
 
 add toast notifications
 
+clarify usage section in docs
+
