@@ -140,3 +140,5 @@ add toast notifications
 
 clarify usage section in docs
 
+document new endpoints
+
