@@ -142,3 +142,5 @@ clarify usage section in docs
 
 document new endpoints
 
+add type annotations
+
