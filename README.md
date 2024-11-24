@@ -146,3 +146,5 @@ add type annotations
 
 add logout functionality
 
+adding encryption to database
+
