@@ -144,3 +144,5 @@ document new endpoints
 
 add type annotations
 
+add logout functionality
+
