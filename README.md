@@ -150,3 +150,5 @@ adding encryption to database
 
 fix spacing between sections
 
+fix header logo alignment
+
