@@ -148,3 +148,5 @@ add logout functionality
 
 adding encryption to database
 
+fix spacing between sections
+
