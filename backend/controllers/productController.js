@@ -32,8 +32,17 @@ import axios from "axios"
 
   const addRecomemdedProduct = async(req, res) => {  
     try {
+<<<<<<< HEAD
         const { name, description, price, category, subCategory, seller, image, quantity } = req.body;
 
+=======
+        const { name, description, price, category, subCategory, seller } = req.body;
+
+        //console.log(req.body);
+        
+
+        const image = req.body.image1;
+>>>>>>> origin/recommendation-update
 
         
            
@@ -57,6 +66,8 @@ import axios from "axios"
             date : Date.now(),  
             seller
         }
+        console.log(productData);
+        
         
 
         const product = new productModel(productData)

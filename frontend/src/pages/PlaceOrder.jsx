@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/frontend_assets/assets'
@@ -23,9 +23,9 @@ const PlaceOrder = () => {
   })
 
   useEffect(()=>{
-    console.log(cartItems);
+    console.log(method);
     
-  }, [])
+  }, [setMethod, method])
 
 
   const onchangeHandler = (e) =>{
@@ -66,39 +66,58 @@ const PlaceOrder = () => {
       }
 
 
+      switch (method) {
+        case 'cod' :
+          const response = await  axios.post(backendUrl+"/api/order/place",{
+            orderData
+          }, {
+            headers : {token}
+          })
+         
+          
+    
+          if(response.data.success){
+            toast.success(response.data.message)
+            setCartItems([])
+            navigate("/orders")
+            
+          }
+          else {
+            toast.error(response.data.message);
+    
+          }
 
-      console.log("order data : ", orderData);
-      
-      
-      
-      
+          
+          break;
 
 
-      const response = await  axios.post(backendUrl+"/api/order/place",{
-        orderData
-      }, {
-        headers : {token}
-      }).catch((error)=>{
-        //toast.error(error)
-        toast.error(error.response.data.message + " for " + error.response.data.item);
-        //toast.success(error.response.data.item)
-        
-      })
-     
-      
+        case 'stripe' :
 
-      if(response.data.success){
-        toast.success(response.data.message)
-        setCartItems([])
-        navigate("/orders")
-        
+        const responseStripe = await axios.post(backendUrl+'/api/order/stripe', {orderData}, {headers:{token}})
+
+        if(responseStripe.data.success){
+          const {session_url} = responseStripe.data;
+          window.location.replace(session_url);
+        }
+        else {
+          toast.error(responseStripe.data.message);
+
+        }
+
+
+
+        break;
+      
+        default:
+          break;
       }
-      else {
-        //console.log(response.data.message);
-        
-        //toast.error(response.data.message);
 
-      }
+      
+      
+      
+
+
+      
 
 
 
