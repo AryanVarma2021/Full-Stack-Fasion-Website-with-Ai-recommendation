@@ -2,6 +2,7 @@ import { STATES } from "mongoose";
 import orderModel from "../models/orderModel.js";
 import productModel from "../models/productModel.js";
 import userModel from "../models/userModel.js"
+import Stripe from "stripe";
 
 
 
@@ -84,9 +85,11 @@ const placedOrder = async (req, res) => {
             }
         }
 
-        // Proceed to create the order if all items have sufficient stock
-        const newOrder = new orderModel(orderData);
+        const newOrder = await new orderModel(orderData);   
         await newOrder.save();
+        await userModel.findByIdAndUpdate(userId, {cartData : {}});  
+        res.json({success:true, message : "Order Placed Successfully"})
+
         
         // Clear the user’s cart after placing the order
         await userModel.findByIdAndUpdate(userId, { cartData: {} });
@@ -159,9 +162,112 @@ const updateStatus = async(req, res) => {
 }
 
 
+
+
+const placeOrderStripe = async(req, res) => {
+    try {
+        console.log("Stripe");
+        
+        console.log(req.body);
+        const {userId} = req.body;
+        
+        
+        
+        const { items, amount, address} = req.body.orderData;
+
+        const {origin} = req.headers;
+
+        const orderData = {
+            userId,
+            items,
+            address,
+            amount,
+            paymentMethod : "Stripe",
+            payment : false,
+            date : Date.now()
+        }
+
+
+        const newOrder = await new orderModel(orderData);
+        await newOrder.save();
+
+        const line_items = items.map((item)=>({
+            price_data : {
+                currency : currency,
+                product_data : {
+                    name : item.name
+                },
+                unit_amount : item.price * 100
+            },
+            quantity : item.quantity
+        }))
+
+        line_items.push({
+            price_data : {
+                currency : currency,
+                product_data : {
+                    name :'Delivery Charges'
+                },
+                unit_amount : deliveryCharges * 100
+            },
+            quantity : 1
+
+        })
+
+
+        const session = await stripe.checkout.sessions.create({
+            success_url : `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url : `${origin}/verify?success=false&orderId=${newOrder._id}`,
+            line_items,
+            mode : 'payment'
+        })
+
+        res.json({success : true, session_url : session.url})
+
+
+
+
+
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
+        
+        
+    }
+
+}
+
+const verifyStripe = async(req, res) => {
+    const {orderId, success, userId} = req.body;
+    try {
+        if(success === "true") {
+            await orderModel.findByIdAndUpdate(orderId, {payment : true});
+            await userModel.findByIdAndUpdate(userId, {cartData : {}});
+            res.json({success : true});
+        }
+        else {
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({success : false})
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
+        
+    } 
+
+}
+
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const currency = 'inr'
+const deliveryCharges = 10
 export {
     placedOrder,
     getAllOrders,
     userOrders,
-    updateStatus
+    updateStatus,
+    placeOrderStripe,
+    verifyStripe
 }

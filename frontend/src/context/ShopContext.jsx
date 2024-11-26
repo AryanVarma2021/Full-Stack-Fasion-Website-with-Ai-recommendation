@@ -19,7 +19,10 @@ const ShopContextProvider = (props) => {
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([])
+    const [recommendedItems,SetRecommendedItems] = useState([])
     const [token, setToken] = useState(localStorage.getItem("token"))
+    const [filterProducts, setFilterProducts] = useState([]);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const [maxQuantity, setMaxQuantity] = useState(false);
 
@@ -241,6 +244,7 @@ const ShopContextProvider = (props) => {
 
     const value = {
         products,
+        setProducts,
         currency,
         delivery_fee,
         search,
@@ -257,7 +261,12 @@ const ShopContextProvider = (props) => {
         token,
         setToken,
         setCartItems,
-        maxQuantity
+        recommendedItems,
+        SetRecommendedItems,
+        filterProducts,
+        setFilterProducts,
+        loading,
+        setLoading
 
 
     }

@@ -6,9 +6,9 @@ import ProductItem from '../components/ProductItem';
 
 
 const Collection = () => {
-  const {products, search, showSearch} = useContext(ShopContext);
+  const {products,filterProducts, setFilterProducts,loading,   search, showSearch} = useContext(ShopContext);
   const [showFilter , setShowFilter] = useState(false);
-  const [filterProducts, setFilterProducts] = useState([]);
+  //const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState('relevant')
@@ -22,7 +22,7 @@ const Collection = () => {
     else {
       setCategory(prev => [...prev, e.target.value]);
     }
-    console.log(category);
+    
   }
 
   const toggleSubCategory = (e) => {
@@ -33,7 +33,7 @@ const Collection = () => {
       setSubCategory(prev => [...prev, e.target.value]);
     }
 
-    console.log(subCategory);
+    
     
   }
 
@@ -76,6 +76,10 @@ const Collection = () => {
 
 
   useEffect(()=>{
+    console.log(filterProducts);
+    console.log(loading);
+    
+    
     
     
     applyFilter();
@@ -86,7 +90,12 @@ const Collection = () => {
   }, [category, subCategory, search, showSearch, products])
 
   useEffect(()=>{
+    
+    
     sortProduct();
+    console.log("Change in products");
+    
+    console.log(filterProducts);
   }, [sortType])
 
  
@@ -155,9 +164,14 @@ const Collection = () => {
         {/* map products */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {
+            loading===false ? 
+            
             filterProducts.map((item, index) => (
               <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.image}/>
             ))
+            :
+            <>Loading</>
+
           }
 
         </div>

@@ -10,6 +10,7 @@ const Cart = () => {
 
   const {products, currency, cartItems,navigate, maxQuantity,  updateQuantity, setCartItems, backendUrl} = useContext(ShopContext)
   const [cartData, setCartData] = useState([]);
+  
 
 
   const getUserCart =async(token)=>{
@@ -77,13 +78,12 @@ const Cart = () => {
     
     }
     setCartData(tempData);
-    console.log(cartItems);
+    console.log("cart items : ",cartData);
+    console.log("Products : ", products);
+    
     
   }
-  else {
-    console.log("lol");
-    
-  }
+  
 
   }, [cartItems, products])
 
@@ -104,12 +104,13 @@ const Cart = () => {
             return (
               <div key={index} className="py-4 border-t border-b grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] text-gray-700  items-center gap-4">
                 <div className="flex items-start gap-6">
-                  <img src={productData1.image[0]} className='w-16 sm:w-20' alt="" />
+                  <img src={productData1.image} className='w-16 sm:w-20' alt="" />
                   <div className="">
                     <p className='text-sm font-medium sm:text-lg'>{productData1.name}</p>
                     <div className="flex items-center gap-5 mt-2">
                       <p>{currency}{productData1.price}</p>
-                      <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.sizes}</p>
+                      <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.size}</p>
+                      <p>Total : {productData1.price * item.quantity }</p>
 
                     </div>
                   </div>
