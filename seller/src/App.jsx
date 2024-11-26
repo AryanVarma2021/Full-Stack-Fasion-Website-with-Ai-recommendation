@@ -9,6 +9,7 @@ import SideBar from './components/SideBar';
 import Orders from './pages/Orders';
 import ListOrders from './pages/ListOrders';
 import Add from './pages/Add';
+import SellerAnalytics from './pages/SellerAnalytics';
 
 
 
@@ -55,6 +56,7 @@ const App = () => {
       <Route path='/add' element={<Add token={token}/>}  />
       <Route path='/list' element={<ListOrders token={token}/>}/>
       <Route path='/orders' element={<Orders token={token}/>}/>
+      <Route path='/analytics' element={<SellerAnalytics token={token}/>} />
 
     </Routes>
 </div>

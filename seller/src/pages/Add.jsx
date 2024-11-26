@@ -23,6 +23,7 @@ useEffect(()=>{
   const [category, setCategory] = useState('Men');
   const [subCategory, setSubCategory] = useState('Topwear');
   const [bestseller, setBestseller] = useState(false);
+  const [quantity, setQuantity] = useState();
   const [sizes, setSizes] = useState([]);
 
 
@@ -32,6 +33,7 @@ useEffect(()=>{
     try {
       const formData = new FormData();
       formData.append("name", name);
+      formData.append("quantity", quantity);
       formData.append("description", description);
       formData.append("price", price);
       formData.append("category", category);
@@ -43,6 +45,9 @@ useEffect(()=>{
       image2 && formData.append("image2", image2);
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
+
+      
+      
 
       const response = await axios.post(backendUrl + "/api/product/add", formData, {
         headers : {token}
@@ -158,6 +163,8 @@ useEffect(()=>{
           <div onClick={(e)=>setSizes(prev=> prev.includes("XL") ? prev.filter((item)=>item !== "XL") : [...prev, "XL"])} className="">
             <p className={` px-3 py-1 cursor-pointer ${sizes.includes("XL") ? 'bg-pink-100' : 'bg-slate-200'}`}>XL</p>
           </div>
+
+          <input min={1} max={100} value={quantity} onChange={(e)=>setQuantity(e.target.value)} type="number"   />
 
         </div>
       </div>

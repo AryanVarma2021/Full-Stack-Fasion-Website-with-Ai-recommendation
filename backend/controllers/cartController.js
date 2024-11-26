@@ -1,6 +1,7 @@
 //add to cart
 
 import userModel from "../models/userModel.js";
+import productModel from "../models/productModel.js";
 
 const addToCart = async(req, res) =>{  
 
@@ -59,6 +60,19 @@ const updateCart = async(req, res) =>{
         const user = await userModel.findById(userId);
         if(!user){
             res.json({success : false, message : "User Not found"})
+        }
+
+
+        const product = await productModel.findById(itemId);
+        const sizeData = product.sizes.find((s) => s.size === size); // Find the object with the matching size
+        console.log(sizeData);
+        
+        const productQuantity = sizeData.quantity ;
+        console.log(productQuantity);
+        if(quantity > productQuantity) {
+            
+            return res.json({success:false, message : `Only ${productQuantity} no of items availale`})
+            
         }
 
         let cartData = await user.cartData;

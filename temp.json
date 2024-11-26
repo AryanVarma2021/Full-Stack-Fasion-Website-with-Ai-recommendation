@@ -1,76 +1,21 @@
-
-{success: true, d: {…}, id: '6713b1739be3e937c81c8b1f'}
-d
-: 
-bestseller
-: 
-false
-category
-: 
-"Men"
-date
-: 
-1729343859432
-description
-: 
-"Welcome to the world of ARROW."
-image
-: 
-Array(1)
-0
-: 
-"https://res.cloudinary.com/dq5jodj5f/image/upload/v1729343858/mkjyeg0zyku2ldqqnkn8.jpg"
-length
-: 
-1
-[[Prototype]]
-: 
-Array(0)
-name
-: 
-"Arrow Men White Shirt"
-price
-: 
-1499
-seller
-: 
-"Arrow"
-sizes
-: 
-Array(3)
-0
-: 
-"S"
-1
-: 
-"M"
-2
-: 
-"L"
-length
-: 
-3
-[[Prototype]]
-: 
-Array(0)
-subCategory
-: 
-"Topwear"
-__v
-: 
-0
-_id
-: 
-"6713b1739be3e937c81c8b1f"
-[[Prototype]]
-: 
-Object
-id
-: 
-"6713b1739be3e937c81c8b1f"
-success
-: 
-true
-[[Prototype]]
-: 
-Object
+{
+    "success": true,
+    "d": {
+      "bestseller": false,
+      "category": "Men",
+      "date": 1729343859432,
+      "description": "Welcome to the world of ARROW.",
+      "image": [
+        "https://res.cloudinary.com/dq5jodj5f/image/upload/v1729343858/mkjyeg0zyku2ldqqnkn8.jpg"
+      ],
+      "name": "Arrow Men White Shirt",
+      "price": 1499,
+      "seller": "Arrow",
+      "sizes": ["S", "M", "L"],
+      "subCategory": "Topwear",
+      "__v": 0,
+      "_id": "6713b1739be3e937c81c8b1f"
+    },
+    "id": "6713b1739be3e937c81c8b1f"
+  }
+  

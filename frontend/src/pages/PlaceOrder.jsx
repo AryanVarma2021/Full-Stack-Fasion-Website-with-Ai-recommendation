@@ -5,6 +5,7 @@ import { assets } from '../assets/frontend_assets/assets'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState('cod');
@@ -18,8 +19,13 @@ const PlaceOrder = () => {
     state:"",
     zipcode:"",
     country:"",
-    phone:''
+    phone:'',
   })
+
+  useEffect(()=>{
+    console.log(cartItems);
+    
+  }, [])
 
 
   const onchangeHandler = (e) =>{
@@ -55,9 +61,14 @@ const PlaceOrder = () => {
       let orderData = {
         address : formData,
         items:orderItems,
-        amount : getCartAmount() + delivery_fee
+        amount : getCartAmount() + delivery_fee,
+        method 
       }
 
+
+
+      console.log("order data : ", orderData);
+      
       
       
       
@@ -67,6 +78,11 @@ const PlaceOrder = () => {
         orderData
       }, {
         headers : {token}
+      }).catch((error)=>{
+        //toast.error(error)
+        toast.error(error.response.data.message + " for " + error.response.data.item);
+        //toast.success(error.response.data.item)
+        
       })
      
       
@@ -78,7 +94,9 @@ const PlaceOrder = () => {
         
       }
       else {
-        toast.error(response.data.message);
+        //console.log(response.data.message);
+        
+        //toast.error(response.data.message);
 
       }
 
@@ -88,8 +106,8 @@ const PlaceOrder = () => {
       
       
     } catch (error) {
-      console.log(error);
-      toast.error(error.message)
+      //console.log(error);
+      //toast.error(error.message)
       
       
     }

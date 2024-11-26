@@ -6,14 +6,14 @@ import productModel from '../models/productModel.js';
 import sellerModel from '../models/sellerModel.js';
 import jwt from 'jsonwebtoken'
 import axios from "axios"
-const decodeToken = (token) => {
+ export const decodeToken = (token) => {
 
 
     
     try {
       // Verify and decode the token using the same secret used for signing
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
+     
       
       
       // The decoded object will contain the `id` and other payload data
@@ -32,7 +32,8 @@ const decodeToken = (token) => {
 
   const addRecomemdedProduct = async(req, res) => {  
     try {
-        const { name, description, price, category, subCategory, seller, image } = req.body;
+        const { name, description, price, category, subCategory, seller, image, quantity } = req.body;
+
 
         
            
@@ -49,6 +50,7 @@ const decodeToken = (token) => {
             price : Number(price),
             image : result.secure_url,
             category,
+            quantity,
             
             sizes : ["S", "M", "L"],    
             bestseller : false,
@@ -82,17 +84,30 @@ const decodeToken = (token) => {
 
 const addProduct = async(req, res) => {
     try {
-        const { name, bestseller, description, price, category, subCategory, sizes } = req.body;
+        const { name, bestseller, description, price, category, subCategory, sizes, quantity } = req.body;
         const coded = req.headers.token;
 
         const userId = decodeToken(coded);
+        const sizesArray = JSON.parse(sizes);
+        
+        console.log(sizes, typeof(sizes));
+        
+        const sizeQuantities = sizesArray.map(size => ({
+            size: size,
+            quantity: quantity // You can customize the quantity as needed
+        }));
+        console.log(sizeQuantities);
+        
+
+
+        
         
        
-        console.log("User is ", userId);
+       
         
 
         const temp = await sellerModel.findById(userId);
-        console.log("User : ", temp);
+        
         
         if(!temp){
             res.json({success : false, message : "Seller not found"});
@@ -126,7 +141,8 @@ const addProduct = async(req, res) => {
             image : imagesUrl,
             category,
             
-            sizes : JSON.parse(sizes),
+            
+            sizes : sizeQuantities,
             bestseller : bestseller === "true" ? true : false,
             date : Date.now(),
             seller : temp.name
