@@ -99,6 +99,7 @@ const ListOrders = ({token}) => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>{item.price}</p>
+            <p>{item.quantity}</p> 
             <p onClick={()=>removeProduct(item._id)} className='text-right md:text-center text-lg cursor-pointer'>X</p>
           </div>
 

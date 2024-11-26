@@ -15,6 +15,8 @@ const decodeToken = (token) => {
   try {
     // Verify and decode the token using the same secret used for signing
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
+    
     
     // The decoded object will contain the `id` and other payload data
     const userId = decoded.id;
@@ -225,6 +227,165 @@ const getUserWhoOrdered = async (req, res) => {
 };
 
 
+// Backend - Controller for Seller Analytics
+// const getSellerAnalytics = async (req, res) => {
+//   try {
+
+//       const {token} = await req.headers; // Assuming seller info is in req.seller
+//       const userId = await decodeToken(token);
+//       const seller = await sellerModel.findById(userId);
+//       const sellerName = seller.name
+//       const orders = await orderModel.find({ "items.seller": sellerName });
+
+//       let totalProductsSold = 0;
+//       let totalRevenue = 0;
+//       const productSales = {}; // { productId: { name, quantitySold, revenue } }
+//       const categorySales = {}; // { category: { quantitySold, revenue } }
+
+//       orders.forEach(order => {
+//           totalRevenue += order.amount;
+
+//           order.items.forEach(item => {
+//               totalProductsSold += item.quantity;
+
+//               // Product-based sales
+//               if (!productSales[item._id]) {
+//                   productSales[item._id] = {
+//                       name: item.name,
+//                       quantitySold: 0,
+//                       revenue: 0
+//                   };
+//               }
+//               productSales[item._id].quantitySold += item.quantity;
+//               productSales[item._id].revenue += item.price * item.quantity;
+
+//               // Category-based sales
+//               if (!categorySales[item.category]) {
+//                   categorySales[item.category] = {
+//                       quantitySold: 0,
+//                       revenue: 0
+//                   };
+//               }
+//               categorySales[item.category].quantitySold += item.quantity;
+//               categorySales[item.category].revenue += item.price * item.quantity;
+//           });
+//       });
+
+//       res.json({
+//           totalProductsSold,
+//           totalRevenue,
+//           productSales,
+//           categorySales
+//       });
+
+//   } catch (error) {
+//       console.log(error);
+//       res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
+
+const getSellerAnalytics = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+      // Find the seller by userId
+      const seller = await sellerModel.findById(userId);
+
+      if (!seller) {
+          return res.status(404).json({ success: false, message: "Seller not found" });
+      }
+
+      // Fetch all orders that contain items from this seller
+      const orders = await orderModel.find({ "items.seller": seller.name });
+
+      // Filter items in each order to include only those belonging to this seller
+      const sellerOrders = orders.map(order => {
+          const filteredItems = order.items.filter(item => item.seller === seller.name);
+
+          if (filteredItems.length > 0) {
+              return {
+                  ...order._doc, // Spread the rest of the order fields
+                  items: filteredItems // Replace items with filtered items
+              };
+          }
+
+          return null; // Exclude orders that have no matching items
+      }).filter(order => order !== null); // Remove null orders
+
+      // If no orders are found after filtering
+      if (sellerOrders.length === 0) {
+          return res.status(200).json({ success: true, message: "No orders found for this seller", data: [] });
+      }
+
+      // Prepare analytics data
+      const totalProductsSold = {};
+      sellerOrders.forEach(order => {
+          order.items.forEach(item => {
+              const productId = item._id;
+
+              if (!totalProductsSold[productId]) {
+                  totalProductsSold[productId] = {
+                      name: item.name,
+                      quantitySold: 0,
+                      revenue: 0,
+                      soldDates: []
+                  };
+              }
+
+              totalProductsSold[productId].quantitySold += item.quantity;
+              totalProductsSold[productId].revenue += item.quantity * item.price;
+              totalProductsSold[productId].soldDates.push(order.date);
+          });
+      });
+
+      // Fetch products to calculate remaining quantities
+      const products = await productModel.find({ seller: seller.name });
+
+      const productSales = {};
+      products.forEach(product => {
+          const productId = product._id.toString();
+          const soldQuantity = totalProductsSold[productId]?.quantitySold || 0;
+
+          if (!productSales[productId]) {
+              productSales[productId] = {
+                  name: product.name,
+                  quantitySold: soldQuantity,
+                  revenue: totalProductsSold[productId]?.revenue || 0,
+                  remainingSizes: [],
+                  soldDates: totalProductsSold[productId]?.soldDates || [],
+                  price : product.price
+              };
+          }
+
+          product.sizes.forEach(size => {
+              productSales[productId].remainingSizes.push({
+                  size: size.size,
+                  remainingQuantity: size.quantity
+              });
+          });
+      });
+
+      // Final analytics data
+      const analyticsData = {
+          totalProductsSold: Object.values(totalProductsSold).reduce((sum, item) => sum + item.quantitySold, 0),
+          totalRevenue: Object.values(totalProductsSold).reduce((sum, item) => sum + item.revenue, 0),
+          productSales
+      };
+
+      res.status(200).json({ success: true, data: analyticsData });
+  } catch (error) {
+      console.error("Error fetching analytics:", error);
+      res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+
+
+
+
+
 
 
 
@@ -235,5 +396,6 @@ export {
     getUserWhoOrdered,
     updateProduct,
     getAllSellers,
-    removeSeller
+    removeSeller,
+    getSellerAnalytics
 }

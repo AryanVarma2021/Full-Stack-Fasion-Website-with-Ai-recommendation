@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 const Cart = () => {
 
-  const {products, currency, cartItems,navigate,  updateQuantity, setCartItems, backendUrl} = useContext(ShopContext)
+  const {products, currency, cartItems,navigate, maxQuantity,  updateQuantity, setCartItems, backendUrl} = useContext(ShopContext)
   const [cartData, setCartData] = useState([]);
 
 
@@ -40,29 +40,41 @@ const Cart = () => {
 
     getUserCart(localStorage.getItem("token"))
     
+    
+    
   },[])
 
 
 
 
   useEffect(()=>{
-    console.log("ruuning");
+    
     
     if(products.length > 0){
-      console.log("runied");
+      
       
       const tempData = [];
 
-      for(const items in cartItems){
-        for(const item in cartItems[items]){
-          if(cartItems[items][item] > 0){
-            tempData.push({
-             _id : items,
-              size : item,
-              quantity : cartItems[items][item]
-          })
+      for (const productId in cartItems) {
+        console.log("Product ID:", productId);
+        
+        const sizesObj = cartItems[productId]; // Object with sizes as keys and quantities as values
+        
+        for (const size in sizesObj) {
+            const quantity = sizesObj[size]; // Quantity for that size
+            
+            if (quantity > 0) {
+                tempData.push({
+                    _id: productId,
+                    size: size,
+                    quantity: quantity
+                });
+            }
         }
-      }
+    
+    
+    console.log("Formatted Cart Data:", tempData);
+    
     }
     setCartData(tempData);
     console.log(cartItems);
@@ -97,12 +109,12 @@ const Cart = () => {
                     <p className='text-sm font-medium sm:text-lg'>{productData1.name}</p>
                     <div className="flex items-center gap-5 mt-2">
                       <p>{currency}{productData1.price}</p>
-                      <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.size}</p>
+                      <p className='px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.sizes}</p>
 
                     </div>
                   </div>
                 </div>
-                <input onChange={(e)=> e.target.value === '' || e.target.value === '0'  ? null : updateQuantity(item._id, item.size, Number(e.target.value))} min={1} defaultValue={item.quantity} className='border px-1 py-1 max-w-10 sm:max-w-20 ' type="number" />
+                <input onChange={(e)=> e.target.value === '' || e.target.value === '0'  ? null : updateQuantity(item._id, item.size, Number(e.target.value))} min={1}  max={maxQuantity ? item.quantity - 2 : 10} defaultValue={maxQuantity ? item.quantity-1 : item.quantity} className='border px-1 py-1 max-w-10 sm:max-w-20 ' type="number" />
                 <img onClick={()=>updateQuantity(item._id, item.size, 0)} src={assets.bin_icon} className='w-4 sm:w-5 cursor-pointer mr-5 sm:' alt="" />
               </div>
             )
@@ -114,7 +126,12 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal/>
           <div className="w-full text-end">
-            <button onClick={()=>navigate('/place-order')} className='bg-black text-sm my-8 p-3 text-white '>PROCEED TO CHECKOUT</button>
+            <button onClick={()=>(
+              navigate('/place-order'),
+              console.log(maxQuantity)
+              
+              
+              )} className='bg-black text-sm my-8 p-3 text-white '>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>

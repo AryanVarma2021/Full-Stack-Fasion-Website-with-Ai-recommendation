@@ -24,6 +24,11 @@ const SideBar = () => {
         <p className='hidden md:block'>Orders</p>
         
         </NavLink>
+        <NavLink className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-lg" to='/analytics'>
+        <img src={order} className='w-5 h-5'  alt="" />
+        <p className='hidden md:block'>Analytics</p>
+        
+        </NavLink>
     </div>
 </div>
   )

@@ -2,12 +2,20 @@
 import mongoose from "mongoose";
 
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({  
+
+    articleNumber: {
+        type: String,
+        required: true,
+        default: () => Math.floor(Math.random() * Date.now())
+    },
+    
 
     name : {
         type : String,
         required : true,
     },
+    
 
     description : {
         type : String,
@@ -34,11 +42,11 @@ const productSchema = new mongoose.Schema({
         required : true
 
     },
-    sizes : {
-        type : Array,
-        required : true
-
-    },
+    sizes: [{
+        size: { type: String, required: true },  // e.g., "S", "M"
+        quantity: { type: Number, required: true } // e.g., 9, 11
+    }],
+    
     bestseller : {
         type : Boolean,
         

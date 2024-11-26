@@ -22,10 +22,17 @@ const Product = () => {
   const [recommendedImages, setRecommendedImages] = useState([]);
   const [loading , setLoading] = useState(false);
 
+  useEffect(()=>{
+    
+    
+  }, [size, setSize])
+
   const fetchProductData = async () => {
 
     products.map((item)=>{
       if(item._id == productId){
+        console.log(item);
+        
         setProductData(item);
         setImage(item.image[0]);
         
@@ -36,10 +43,15 @@ const Product = () => {
   }
   useEffect(()=>{
     setRecommendedProducts([])
+    
+    
+    
+    
   }, [])
 
   useEffect(()=>{
     fetchProductData();
+    console.log("productData :", productData, products);
     
   }, [productId, products])
 
@@ -160,14 +172,18 @@ const Product = () => {
             <div className="flex gap-2">
               {
                 productData.sizes.map((s, index)=>(
-                  <button onClick={()=>setSize(s)} className={`border-2 py-2 px-4 bg-gray-100 ${s === size ? 'border-orange-500' : ''}`} key={index} >{s}</button>
+                  <div key={index} className="">
+                    <p>{s.quantity}</p>
+                 { s.quantity !== 0 ? <button onClick={()=>setSize(s)} className={`border-2 py-2 px-4 bg-gray-100 ${s === size ? 'border-orange-500' : ''}`} key={index} >{s.size}</button>: <button className='border-2 py-2 px-4 bg-gray-100'>Not Avaiable</button>}
+                  </div>
+                    
                 ))
               }
             </div>
           </div>
 
           <button onClick={()=>{
-            addToCart(productData._id, size);
+            addToCart(productData._id, size.size);
           }} className='bg-black text-white text-sm px-8 py-3 active:bg-gray-700' >Add to Cart</button>
               <hr className='mt-8 sm:w-4/5' />
 
