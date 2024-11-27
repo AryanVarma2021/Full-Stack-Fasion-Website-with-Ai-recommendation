@@ -152,3 +152,5 @@ fix spacing between sections
 
 fix header logo alignment
 
+update README with setup steps
+
