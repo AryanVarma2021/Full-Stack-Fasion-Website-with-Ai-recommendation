@@ -154,3 +154,5 @@ fix header logo alignment
 
 update README with setup steps
 
+add email notification system
+
