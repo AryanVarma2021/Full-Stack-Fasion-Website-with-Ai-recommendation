@@ -160,3 +160,5 @@ add dark mode toggle
 
 implement forgot password logic
 
+add email notification system
+
