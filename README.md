@@ -156,3 +156,5 @@ update README with setup steps
 
 add email notification system
 
+add dark mode toggle
+
