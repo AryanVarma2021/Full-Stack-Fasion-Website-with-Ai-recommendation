@@ -162,3 +162,5 @@ implement forgot password logic
 
 add email notification system
 
+implement theme persistence
+
