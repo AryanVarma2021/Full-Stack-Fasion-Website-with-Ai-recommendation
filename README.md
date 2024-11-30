@@ -166,3 +166,5 @@ implement theme persistence
 
 improve UI responsiveness
 
+change color scheme
+
