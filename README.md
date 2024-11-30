@@ -170,3 +170,5 @@ change color scheme
 
 add new feature section
 
+add payment receipt download
+
