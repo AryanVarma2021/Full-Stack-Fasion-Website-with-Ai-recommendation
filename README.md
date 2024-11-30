@@ -164,3 +164,5 @@ add email notification system
 
 implement theme persistence
 
+improve UI responsiveness
+
