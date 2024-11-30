@@ -168,3 +168,5 @@ improve UI responsiveness
 
 change color scheme
 
+add new feature section
+
