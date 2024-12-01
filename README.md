@@ -172,3 +172,5 @@ add new feature section
 
 add payment receipt download
 
+handle null pointer in user service
+
