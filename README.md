@@ -174,3 +174,5 @@ add payment receipt download
 
 handle null pointer in user service
 
+fix infinite loop in polling
+
