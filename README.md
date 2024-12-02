@@ -176,3 +176,5 @@ handle null pointer in user service
 
 fix infinite loop in polling
 
+improve modal close behavior
+
