@@ -178,3 +178,5 @@ fix infinite loop in polling
 
 improve modal close behavior
 
+update logic for cart item removal
+
