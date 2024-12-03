@@ -184,3 +184,5 @@ update layout for mobile responsiveness
 
 add email notification system
 
+improve doc string clarity
+
