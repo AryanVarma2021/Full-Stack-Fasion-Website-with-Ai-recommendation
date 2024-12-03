@@ -182,3 +182,5 @@ update logic for cart item removal
 
 update layout for mobile responsiveness
 
+add email notification system
+
