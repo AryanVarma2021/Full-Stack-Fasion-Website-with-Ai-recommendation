@@ -190,3 +190,5 @@ change db column type
 
 refactor code structure
 
+add image carousel
+
