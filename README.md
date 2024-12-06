@@ -194,3 +194,5 @@ add image carousel
 
 add payment receipt download
 
+update logic for cart item removal
+
