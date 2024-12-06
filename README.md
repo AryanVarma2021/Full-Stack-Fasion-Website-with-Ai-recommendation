@@ -186,3 +186,5 @@ add email notification system
 
 improve doc string clarity
 
+change db column type
+
