@@ -188,3 +188,5 @@ improve doc string clarity
 
 change db column type
 
+refactor code structure
+
