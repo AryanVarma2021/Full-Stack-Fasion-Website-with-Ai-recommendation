@@ -198,3 +198,5 @@ update logic for cart item removal
 
 change font family to Roboto
 
+fix bug in signup flow
+
