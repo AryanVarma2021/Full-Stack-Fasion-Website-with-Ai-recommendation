@@ -200,3 +200,5 @@ change font family to Roboto
 
 fix bug in signup flow
 
+fix scrollbar visibility
+
