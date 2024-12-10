@@ -206,3 +206,5 @@ fix primary key conflict
 
 add payment receipt download
 
+optimize image loading
+
