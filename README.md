@@ -216,3 +216,5 @@ add dark mode toggle
 
 improve modal close behavior
 
+adding encryption to database
+
