@@ -210,3 +210,5 @@ optimize image loading
 
 add dark mode toggle
 
+add file upload handler
+
