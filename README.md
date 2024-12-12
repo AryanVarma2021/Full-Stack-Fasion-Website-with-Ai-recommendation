@@ -208,3 +208,5 @@ add payment receipt download
 
 optimize image loading
 
+add dark mode toggle
+
