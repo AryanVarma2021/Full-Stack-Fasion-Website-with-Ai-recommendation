@@ -214,3 +214,5 @@ add file upload handler
 
 add dark mode toggle
 
+improve modal close behavior
+
