@@ -220,3 +220,5 @@ adding encryption to database
 
 change font family to Roboto
 
+fix z-index issue in modal
+
