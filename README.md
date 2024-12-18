@@ -222,3 +222,5 @@ change font family to Roboto
 
 fix z-index issue in modal
 
+align navbar properly
+
