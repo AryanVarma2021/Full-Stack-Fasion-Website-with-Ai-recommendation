@@ -228,3 +228,5 @@ add logout functionality
 
 update splash screen
 
+add payment receipt download
+
