@@ -226,3 +226,5 @@ align navbar properly
 
 add logout functionality
 
+update splash screen
+
