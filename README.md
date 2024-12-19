@@ -224,3 +224,5 @@ fix z-index issue in modal
 
 align navbar properly
 
+add logout functionality
+
