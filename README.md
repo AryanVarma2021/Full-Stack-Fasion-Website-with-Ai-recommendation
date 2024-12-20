@@ -232,3 +232,5 @@ add payment receipt download
 
 center-align login box
 
+improve doc string clarity
+
