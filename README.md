@@ -230,3 +230,5 @@ update splash screen
 
 add payment receipt download
 
+center-align login box
+
