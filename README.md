@@ -236,3 +236,5 @@ improve doc string clarity
 
 fix font size for mobile view
 
+update dependencies
+
