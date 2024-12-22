@@ -238,3 +238,5 @@ fix font size for mobile view
 
 update dependencies
 
+fix z-index issue in modal
+
