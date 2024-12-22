@@ -234,3 +234,5 @@ center-align login box
 
 improve doc string clarity
 
+fix font size for mobile view
+
